@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:16
+    container_name: financial-portfolio-tracker-db
+    environment:
+      POSTGRES_DB: financial_portfolio_db
+      POSTGRES_USER: financial_portfolio_user
+      POSTGRES_PASSWORD: Financial@123
+    ports:
+      - "5432:5432"
+    volumes:
+      - financial_portfolio_pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: financial-portfolio-tracker-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: bhutanipraveen74@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+
+volumes:
+  financial_portfolio_pgdata:
+
