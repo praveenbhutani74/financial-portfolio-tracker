@@ -1,5 +1,6 @@
 package com.financialtracker.financial_portfolio_tracker.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +18,11 @@ public interface AssestsService {
 	List<AssestsResponse> fetchAllAssests();
 	
 	String deleteAssests(Integer id);
+	
+	String deleteAssetByTicker(Integer portfolioId, String ticker);
+	// AssestsService.java
+	BigDecimal getCurrentPrice(String ticker);
+
 
 }
 ;

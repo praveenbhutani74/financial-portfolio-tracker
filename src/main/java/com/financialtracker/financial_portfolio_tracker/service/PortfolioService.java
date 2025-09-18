@@ -16,7 +16,11 @@ public interface PortfolioService {
 	
 	List<PortfolioResponse> fetchAllPortfolio();
 	
+	PortfolioResponse getPortfolioById(Integer id);
+
+	
 	void deletePortfolio(Integer id);
+	
 
 	
 }

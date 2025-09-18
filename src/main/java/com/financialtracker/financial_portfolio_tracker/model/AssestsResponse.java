@@ -9,7 +9,26 @@ public class AssestsResponse {
     private Integer quantity;
     private BigDecimal avgBuyPrice;
     private PortfolioResponse portfolio;
-    private Timestamp createdAt;
+    private BigDecimal currentPrice;
+    private BigDecimal currentValue;
+
+    public BigDecimal getCurrentPrice() {
+		return currentPrice;
+	}
+
+	public void setCurrentPrice(BigDecimal currentPrice) {
+		this.currentPrice = currentPrice;
+	}
+
+	public BigDecimal getCurrentValue() {
+		return currentValue;
+	}
+
+	public void setCurrentValue(BigDecimal currentValue) {
+		this.currentValue = currentValue;
+	}
+
+	private Timestamp createdAt;
     private Timestamp updatedAt;
 
     // Getters and Setters

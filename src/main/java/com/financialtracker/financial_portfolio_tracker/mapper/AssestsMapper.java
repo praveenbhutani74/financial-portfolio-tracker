@@ -1,5 +1,7 @@
 package com.financialtracker.financial_portfolio_tracker.mapper;
 
+import java.math.BigDecimal;
+
 import com.financialtracker.financial_portfolio_tracker.entity.EAssets;
 import com.financialtracker.financial_portfolio_tracker.entity.EPortfolio;
 import com.financialtracker.financial_portfolio_tracker.model.AssestsRequest;
@@ -27,12 +29,22 @@ public class AssestsMapper {
 	        return eAssets;
 	    }
 
-	    public static AssestsResponse mapAssetEntityToResponse(EAssets eAssets) {
-	    	AssestsResponse response = new AssestsResponse();
+	    public static AssestsResponse mapAssetEntityToResponse(EAssets eAssets, BigDecimal currentPrice) {
+	        AssestsResponse response = new AssestsResponse();
 	        response.setId(eAssets.getId());
 	        response.setTicker(eAssets.getTicker());
 	        response.setQuantity(eAssets.getQuantity());
 	        response.setAvgBuyPrice(eAssets.getAvgBuyPrice());
+
+	        // Current Price + Current Value
+	        if (currentPrice != null) {
+	            response.setCurrentPrice(currentPrice);
+	            response.setCurrentValue(
+	                currentPrice.multiply(BigDecimal.valueOf(eAssets.getQuantity()))
+	            );
+	        }
+
+	        // Portfolio + User mapping
 	        PortfolioResponse portfolioResponse = new PortfolioResponse();
 	        portfolioResponse.setName(eAssets.getePortfolio().getName());
 	        portfolioResponse.setId(eAssets.getePortfolio().getId());
@@ -42,8 +54,11 @@ public class AssestsMapper {
 	        userResponse.setEmail(eAssets.getePortfolio().geteUser().getEmail());
 	        portfolioResponse.setUser(userResponse);
 	        response.setPortfolio(portfolioResponse);
+
 	        response.setCreatedAt(eAssets.getCreatedAt());
 	        response.setUpdatedAt(eAssets.getUpdatedAt());
+
 	        return response;
 	    }
+
 }
